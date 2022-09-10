@@ -12,7 +12,7 @@ var usuarios = new Vue({
       perfiles: [],
       usuario: {
         email: '',
-        cUsuPerfil: '',
+        cUsuPerfil: 1,
         name: '',
       },
       cargando: false,
@@ -30,17 +30,16 @@ var usuarios = new Vue({
   },
   mounted() {
     this.getUsuarios()
-    this.getPerfiles()
   },
   methods: {
     getUsuarios: async function (page = 1) {
       this.cargando = true
       await axios
-        .get(`/usuarios/paginado?page=${page}`, { params: this.busqueda })
+        .get(`/usuarios/listado?page=${page}`, { params: this.busqueda })
         .then((response) => {
-          const { pagination, usuarios } = response.data
+          const { pagination, Usuario } = response.data
           this.pagination = pagination
-          this.usuarios = usuarios
+          this.usuarios = Usuario
         })
         .catch((error) => {
           console.log(error)
@@ -55,31 +54,12 @@ var usuarios = new Vue({
       this.pagination.current_page = page
       this.getUsuarios(page)
     },
-
-    getPerfiles: async function () {
-      await axios
-        .get('/perfiles/todo')
-        .then((response) => {
-          this.perfiles = response.data
-        })
-        .catch((error) => {
-          console.log(error)
-          toastr.warning(error.message, 'Perfiles')
-        })
-    },
-
     limpiar: function () {
       this.usuario = {
         email: '',
-        cUsuPassword: 0,
-        cUsuPerfil: '',
+        cUsuPassword: 1,
+        cUsuPerfil: 1,
         name: '',
-        cUsuApellidoPat: '',
-        cUsuApellidoMat: '',
-        cUsuEmail: '',
-        cUsuCambiarPass: 1,
-        cUsuEstado: 1,
-        cUsuImagen: null,
       }
     },
 
@@ -119,14 +99,14 @@ var usuarios = new Vue({
 
     editar: function (usuario) {
       this.usuario = usuario
-      const { cUsuFolio: id } = usuario
+      const { id: id } = usuario
       this.getUsuario(id).then(() => {
         $('#modal-editar').modal('show')
       })
     },
 
     updateUsuario: async function () {
-      const { cUsuFolio: id } = this.usuario
+      const { id: id } = this.usuario
       await axios
         .put(`/usuarios/${id}`, this.usuario)
         .then((response) => {

@@ -13,7 +13,7 @@ class CreateTbmenuTable extends Migration
      */
     public function up()
     {
-        Schema::create('tbmenu', function (Blueprint $table) {
+        Schema::create('tbMenu', function (Blueprint $table) {
             $table->integer('cFolioMenu', true);
             $table->integer('cIdMenu')->unique('cIdMenu');
             $table->string('cItemMenu', 100);

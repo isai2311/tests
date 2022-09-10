@@ -35,6 +35,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
 
     Route::get('pruebas/paginado', [PruebaController::class, 'paginate']);
+    Route::get('usuarios/listado', [UsuarioController::class, 'listado']);
+    Route::get('usuarios/{usuario}', [UsuarioController::class, 'show']);
     Route::get('pruebas/usuario', [PruebaController::class, 'usuarios']);
     Route::post('preguntas/cargar/{prueba}', [PruebaController::class, 'importarPreguntas']);
     Route::resource('pruebas',PruebaController::class, ['only'=>['index','show','store', 'update', 'destroy']]);
@@ -42,6 +44,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('opciones',OpcionController::class, ['only'=>['destroy']]);
     Route::get('template/excel', [PruebaController::class, 'downloadTemplateExcel']);
     Route::resource('usuarios',UsuarioController::class, ['only'=>['index','show','store', 'update', 'destroy']]);
-    Route::get('usuarios/paginado', [UsuarioController::class, 'paginate']);
 
 });

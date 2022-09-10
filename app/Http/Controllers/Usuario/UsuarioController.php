@@ -17,9 +17,8 @@ class UsuarioController extends Controller
     {
         return view('usuarios.index');
     }
-    public function paginate(Request $request, $paginas = 10)
+    public function listado(Request $request, $paginas = 10)
     {
-        dd($request->all());
         $campos = $request->all();
         $email = $request->input('email','');
         $id = $request->input('id','');
@@ -36,9 +35,17 @@ class UsuarioController extends Controller
         if ($id != '') {
             $usuario = $usuario->where('id', $id);
         }
-        $usuario = $usuario->get();
+        $usuario = $usuario->paginate($paginas);
 
         return [
+            'pagination' => [
+                'total'        => $usuario->total(),
+                'current_page' => $usuario->currentPage(),
+                'per_page'     => $usuario->perPage(),
+                'last_page'    => $usuario->lastPage(),
+                'from'         => $usuario->firstItem(),
+                'to'           => $usuario->lastItem(),
+            ],
             'Usuario' => $usuario,
         ];
     }
@@ -60,7 +67,13 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $usuario = new User();
+        $usuario->name = $request->input('name');
+        $usuario->email = $request->input('email');
+        $usuario->password = bcrypt($request->input('password'));
+        $usuario->cUsuPerfil = 1;
+        $usuario->save();
+        return ['message' => 'Usuario creado','success' => true];
     }
 
     /**
@@ -71,7 +84,7 @@ class UsuarioController extends Controller
      */
     public function show(User $usuario)
     {
-        //
+        return $usuario;
     }
 
     /**
@@ -94,7 +107,10 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, User $usuario)
     {
-        //
+        $campos = $request->all();
+        $campos['password'] = bcrypt($request->input('password'));
+        $usuario->update($campos);
+        return ['message' => 'Usuario actualizado', 'success' => true];
     }
 
     /**

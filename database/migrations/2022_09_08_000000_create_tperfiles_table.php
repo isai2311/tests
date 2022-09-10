@@ -13,7 +13,7 @@ class CreateTperfilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tperfiles', function (Blueprint $table) {
+        Schema::create('tPerfiles', function (Blueprint $table) {
             $table->id('cPerFolio');
             $table->string('cPerDescripcion', 30);
             $table->string('cPerPrivilegios', 500)->default('1');

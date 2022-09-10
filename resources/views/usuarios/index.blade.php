@@ -26,15 +26,6 @@
                                                 <input type="text" class="form-control" v-model="busqueda.name"
                                                     v-on:change="getUsuarios()" placeholder="Nombre">
                                             </th>
-                                            <th>
-                                                <select class="form-control" v-model="busqueda.cUsuPerfil"
-                                                    v-on:change="getUsuarios()">
-                                                    <option value="">Perfil</option>
-                                                    <template v-for="perfil in perfiles">
-                                                        <option :value="perfil.cPerFolio">@{{ perfil.cPerDescripcion }}</option>
-                                                    </template>
-                                                </select>
-                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -45,18 +36,9 @@
                                                         <button class="btn btn-sm btn-primary" v-on:click="editar(usuario)">
                                                             <i class="fas fa-edit"></i>
                                                         </button>
-                                                        <button class="btn btn-sm btn-danger"
-                                                            v-on:click="reiniciar(usuario)">
-                                                            <i class="fas fa-key"></i>
-                                                        </button>
                                                     </td>
                                                     <td>@{{ usuario.email }}</td>
                                                     <td>@{{ usuario.name }}</td>
-                                                    <td>
-                                                        <template v-if="usuario.perfil">
-                                                            @{{ usuario.perfil.cPerDescripcion }}
-                                                        </template>
-                                                    </td>
                                                 </tr>
                                             </template>
                                         </template>
