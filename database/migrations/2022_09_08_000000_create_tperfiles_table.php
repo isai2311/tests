@@ -29,6 +29,6 @@ class CreateTperfilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tperfiles');
+        Schema::dropIfExists('tPerfiles');
     }
 }
