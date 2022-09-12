@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedBigInteger('cUsuPerfil')->nullable();
+            $table->id('cUsuPerfil')->nullable();
             $table->foreign('cUsuPerfil')->references('cPerFolio')->on('tperfiles');
             $table->rememberToken();
             $table->timestamps();
