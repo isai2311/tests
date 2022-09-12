@@ -26,6 +26,26 @@ class PruebaController extends Controller
         return view('pruebas.index');
     }
 
+    public function preguntas()
+    {
+        return view('pruebas.preguntas');
+    }
+
+    public function pruebaVer(Prueba $prueba){
+        $prueba->load('preguntas');
+        $prueba->each(function($prueba){
+            $prueba->preguntas->each(function($pregunta){
+                $pregunta->opciones;
+            });
+        });
+        return view('pruebas.ver', compact('prueba'));
+    }
+
+    public function pruebasAsignadas()
+    {
+        return User::findOrFail(auth()->id)->pruebasAsignadas;
+    }
+
     public function usuarios()
     {
         return User::all();
@@ -53,6 +73,11 @@ class PruebaController extends Controller
         }
         if ($resultados != '') {
             $prueba = $prueba->where('Resultados', $resultados);
+        }
+        if(auth()->user()->cUsuPerfil != 1){
+            $prueba = $prueba->whereHas('usuarios', function($query){
+                $query->where('Usuario', auth()->user()->id);
+            });
         }
 
         $prueba = $prueba->paginate($paginas);

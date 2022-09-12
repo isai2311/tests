@@ -119,6 +119,10 @@ var pruebas = new Vue({
         }]
       }
     },
+    ver: function($prueba){
+        const { id } = $prueba;
+        window.location.href = `/pruebas/ver/${id}`;
+    },
     limpiarPregunta: function () {
         this.pregunta = {
             id: '',

@@ -23,6 +23,9 @@
                             <option value="0">No mostrar resultados</option>
                         </select>
                     </th>
+                    <th>
+                        <input type="text" class="form-class" placeholder="Mostrar" disabled>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -51,6 +54,11 @@
                                     :class="prueba.Resultados ? 'badge-success' : 'badge-danger'"
                                     style="width: 100px;">@{{ prueba.Resultados ? 'Si' : 'No' }}
                                 </span>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Ver" v-on:click="ver(prueba)">
+                                    <i class="fas fa-eye"></i>
+                                </button>
                             </td>
                         </tr>
                     </template>

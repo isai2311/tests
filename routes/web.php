@@ -33,7 +33,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('menu', [BMenuController::class, 'index'])->name('menu');
     Route::get('home', [HomeController::class, 'index'])->name('home');
-
+    Route::get('preguntas', [PruebaController::class, 'preguntas'])->name('preguntas');
+    Route::get('usuario/preguntas', [PruebaController::class, 'pruebasAsignadas'])->name('preguntasAsignadas');
+    Route::get('pruebas/ver/{prueba}', [PruebaController::class, 'pruebaVer'])->name('pruebaVer');
     Route::get('pruebas/paginado', [PruebaController::class, 'paginate']);
     Route::get('usuarios/listado', [UsuarioController::class, 'listado']);
     Route::get('usuarios/{usuario}', [UsuarioController::class, 'show']);
