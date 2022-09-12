@@ -71,7 +71,7 @@ class UsuarioController extends Controller
         $usuario->name = $request->input('name');
         $usuario->email = $request->input('email');
         $usuario->password = bcrypt($request->input('password'));
-        $usuario->cUsuPerfil = 1;
+        $usuario->cUsuPerfil = 2;
         $usuario->save();
         return ['message' => 'Usuario creado','success' => true];
     }
